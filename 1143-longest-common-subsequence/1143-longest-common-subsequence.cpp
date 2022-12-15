@@ -11,8 +11,8 @@ public:
             ans = 1 + solve(s1,s2,i+1,j+1,dp);
         else
             ans = max(solve(s1,s2,i+1,j,dp),solve(s1,s2,i,j+1,dp));
-           dp[i][j] = ans;
-        return ans;
+           
+        return dp[i][j] = ans;
     }
     int longestCommonSubsequence(string text1, string text2) {
         vector<vector<int> > dp(text1.length(),vector<int>(text2.length(),-1));
