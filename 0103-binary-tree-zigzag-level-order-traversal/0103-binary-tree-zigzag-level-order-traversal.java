@@ -57,11 +57,7 @@ class Solution {
         while(!q.isEmpty()){
             int size = q.size();
             List<Integer> level = new ArrayList<Integer>(size);
-           
-           for(int ite : level){
-               level.add(0);
 
-           }
             for(int i = 0; i < size;i++){
                 int idx = lr ? i : size-i-1;
 
