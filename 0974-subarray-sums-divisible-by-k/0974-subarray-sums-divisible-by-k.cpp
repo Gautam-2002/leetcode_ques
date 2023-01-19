@@ -13,11 +13,13 @@ public:
             }
         }
         for(int i=0;i<n;i++){
+            //frequency of same remainders
             mp[prefix[i]%k]++;
         }
         mp[0]++;
         int ans = 0;
         for(auto it:mp){
+            // using combination formula on same remainders
             ans += (it.second * (it.second-1))/2;
         }
         return ans;
