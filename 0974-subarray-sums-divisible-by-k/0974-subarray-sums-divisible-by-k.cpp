@@ -3,16 +3,22 @@ public:
     int subarraysDivByK(vector<int>& nums, int k) {
         int n = nums.size();
         unordered_map<int,int> mp;
-        int ans = 0;
-        int prefix = 0;
-        mp[0]++;
-        for(int i=0; i<n; i++){
-            prefix+=nums[i];
-            int mod = ((prefix % k) + k)% k;
-            if(mp.find(mod)!=mp.end()){
-                ans+=mp[mod];
+        vector<int> prefix(n);
+        prefix[0] = nums[0]>0?nums[0]:(nums[0]*(-1)*k)+nums[0];
+        for(int i=1;i<n;i++){
+            prefix[i] = prefix[i-1]+nums[i];
+            if(prefix[i]<0){
+                prefix[i]%=k;
+                prefix[i]+=k;
             }
-            mp[mod]++;
+        }
+        for(int i=0;i<n;i++){
+            mp[prefix[i]%k]++;
+        }
+        mp[0]++;
+        int ans = 0;
+        for(auto it:mp){
+            ans += (it.second * (it.second-1))/2;
         }
         return ans;
     }
