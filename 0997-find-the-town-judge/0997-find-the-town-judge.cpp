@@ -2,7 +2,6 @@ class Solution {
 public:
     int findJudge(int n, vector<vector<int>>& trust) {
         if(n==1 && trust.size()==0)return 1;
-        if(n==0)return -1;
         unordered_map<int,pair<int,int>> mp;
         for(auto it:trust){
             mp[it[0]].first++;
