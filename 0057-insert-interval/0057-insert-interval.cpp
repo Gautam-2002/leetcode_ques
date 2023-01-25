@@ -1,55 +1,25 @@
 class Solution {
 public:
-    void merge(vector<vector<int>> &mergeIntervals,vector<vector<int>> &intervals){
-        if(intervals.size()==0)
-            return ;
-        
-        if(intervals.size()==1){
-            mergeIntervals=intervals;
-            return ;
+
+    vector<vector<int>> insert(vector<vector<int>>& intervals, vector<int>& newEvent) {
+        int N = intervals.size();
+        vector<vector<int>> ans;
+        int i = 0;
+        while(i < N && newEvent[0] > intervals[i][1])
+        {
+            ans.push_back(intervals[i]);
+            i++;
         }
-        sort(intervals.begin(),intervals.end());
-        vector<int> tempInterval=intervals[0];
-        for(auto it : intervals){
-            if(it[0]<=tempInterval[1]){
-                tempInterval[1]=max(it[1],tempInterval[1]);
-            }
-            else{
-                mergeIntervals.push_back(tempInterval);
-                tempInterval=it;
-            }
-        }mergeIntervals.push_back(tempInterval);
-    }
-    vector<vector<int>> insert(vector<vector<int>>& intervals, vector<int>& newInterval) {
-        
-//         vector<vector<int>> ans;
-//         if(intervals.size()==0){
-//             ans.push_back(newInterval);
-//             return ans;
-//         }
-//         int f=-1;
-//         for(int i=0;i<intervals.size();i++){
-//             if(intervals[i][1]>=newInterval[0]){
-//                 if(f==1){
-//                     ans.push_back(intervals[i]);
-//                     continue;
-//                 }
-//                 vector<int> temp = {min(newInterval[0],intervals[i][0]),max(intervals[i][1],newInterval[1])};
-//                 ans.push_back(temp);
-//                 f=1;
-//             }
-//             else{
-//                 ans.push_back(intervals[i]);
-//             }
-//         }
-//         if(f==-1){
-//             ans.push_back(newInterval);
-//             return ans;
-//         }
-        intervals.push_back(newInterval);
-        vector<vector<int>> res;
-        merge(res,intervals);
-        
-        return res;
+        while(i < N && newEvent[1] >= intervals[i][0]){
+            newEvent[0] = min(intervals[i][0],newEvent[0]);
+            newEvent[1] = max(intervals[i][1],newEvent[1]);
+            i++;
+        }
+        ans.push_back(newEvent);
+        while(i<N){
+            ans.push_back(intervals[i]);
+            i++;
+        }
+        return ans;
     }
 };
