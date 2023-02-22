@@ -1,37 +1,55 @@
 class Solution {
 public:
-    // Check whether the packages can be shipped in less than "days" days with
-    // "c" capacity.
-    bool feasible(vector<int>& weights, int c, int days) {
-        int daysNeeded = 1, currentLoad = 0;
-        for (int weight : weights) {
-            currentLoad += weight;
-            if (currentLoad > c) {
-                daysNeeded++;
-                currentLoad = weight;
+    pair<bool,int> isval(int lmt,vector<int>& arr, int x,int t){
+        int i=0,j=arr.size()-1;
+        int sum=0;
+        int d = 0;
+        int maxi = INT_MIN;
+        while(i<=j){
+            // cout<<i<<"~"<<j<<endl;
+            if(arr[i]>lmt){
+                return {false,-1};
             }
+            while(i<=j && sum+arr[i]<=lmt){
+                if(arr[i]>lmt){
+                    return {false,-1};
+                }
+                sum+=arr[i++];
+            }
+            maxi = max(maxi,sum);
+            // cout<<maxi<<endl;
+            sum=0;
+            d++;
         }
-
-        return daysNeeded <= days;
+        if(d<=x)
+            return {true,maxi};
+        return {false,-1};
     }
-
     int shipWithinDays(vector<int>& weights, int days) {
-        int totalLoad = 0, maxLoad = 0;
-        for (int weight : weights) {
-            totalLoad += weight;
-            maxLoad = max(maxLoad, weight);
+        int total = 0;
+        for(auto i:weights){
+            total+=i;
         }
-
-        int l = maxLoad, r = totalLoad;
-
-        while (l < r) {
-            int mid = (l + r) / 2;
-            if (feasible(weights, mid, days)) {
+        if(days==1)
+            return total;
+        int l = 1;
+        int r = total;
+        int mid;
+        int ans = -1;
+        while(l<r){
+            // cout<<l<<"#"<<l + (r-l)/2<<"#"<<r<<endl;
+            mid = l + (r-l)/2;
+            pair<bool,int> val = isval(mid,weights,days,total);
+            if(val.first){
+                ans = mid;
+                // cout<<l<<"^"<<mid<<"^"<<r<<endl;
                 r = mid;
-            } else {
-                l = mid + 1;
+            }
+            else{
+                // cout<<l<<"*"<<mid<<"*"<<r<<endl;
+                l= mid+1;
             }
         }
-        return l;
+        return ans;
     }
 };
