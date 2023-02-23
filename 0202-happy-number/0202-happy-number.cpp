@@ -16,7 +16,6 @@ public:
             x = a;
             a = 0;
         }
-        cout<<x<<" ";
         return false;
         
     }
