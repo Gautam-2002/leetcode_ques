@@ -16,7 +16,7 @@ public:
                 i = arr[idx++];
             while(x<i){
                 cnt++;
-                cout<<x<<"*"<<cnt<<"^";
+                // cout<<x<<"*"<<cnt<<"^";
                 if(cnt==k){
                     return x;
                 }
