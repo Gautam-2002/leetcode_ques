@@ -11,33 +11,36 @@
  */
 class Solution {
 public:
-    void solve(TreeNode* root,int x,vector<int> &path,vector<vector<int>> &ans){
-        if(root==NULL){
-            return ;
+    bool isLeaf(TreeNode* root){
+        if(!root->left && !root->right){
+            return true;
         }
-        if(root->left==NULL && root->right==NULL){
-            if(x-root->val==0)
+        return false;
+    }
+    void solve(TreeNode* root,vector<int> path,vector<vector<int>>&ans,int ts){
+        if(root==NULL)return;
+        path.push_back(root->val);
+        if(isLeaf(root)){
+            if(ts-root->val==0){
                 ans.push_back(path);
+            }
             return;
         }
-        if(root->left){
-            path.push_back(root->left->val);
-            solve(root->left,x-root->val,path,ans);
-            path.pop_back();
-        }
-        if(root->right){
-            path.push_back(root->right->val);
-            solve(root->right,x-root->val,path,ans);
-            path.pop_back();
-        }
-
+        solve(root->left,path,ans,ts-root->val);
+        solve(root->right,path,ans,ts-root->val);        
     }
     vector<vector<int>> pathSum(TreeNode* root, int targetSum) {
         vector<vector<int>> ans;
         if(root==NULL)return ans;
         vector<int>path;
         path.push_back(root->val);
-        solve(root,targetSum,path,ans);
+        if(isLeaf(root)){
+            if(targetSum-root->val==0){
+                ans.push_back(path);
+            }
+        }
+        solve(root->left,path,ans,targetSum-root->val);
+        solve(root->right,path,ans,targetSum-root->val);
         return ans;
     }
 };
