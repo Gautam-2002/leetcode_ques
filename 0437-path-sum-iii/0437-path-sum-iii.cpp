@@ -11,29 +11,25 @@
  */
 class Solution {
 public:
-    void solve(TreeNode* root,long long ts,vector<int>&path,int &ans){
-        if(root==NULL)return;
-        path.push_back(root->val);
+    int solve(TreeNode* root,int ts,long long prefix,unordered_map<long long,int> &memo){
+        if(root==nullptr)return 0;
         
-        if(root->left)
-            solve(root->left,ts,path,ans);
-        if(root->right)
-            solve(root->right,ts,path,ans);
-        int n = path.size()-1;
-        for(int i=n;i>=0;i--){
-            if(ts-path[i]==0){
-                ans++;
-                // break;
-            }
-            ts-=path[i];
-        }
-        path.pop_back();
+        int ans = 0;
+        prefix += root->val;
+        ans += memo[prefix-ts];
+        memo[prefix]++;
+        
+        ans += solve(root->left,ts,prefix,memo);
+        ans += solve(root->right,ts,prefix,memo);
+        
+        memo[prefix]--;
+        
+        return ans;
     }
     int pathSum(TreeNode* root, int targetSum) {
-        int cnt = 0;
-        vector<int> path;
-        long long t = targetSum;
-        solve(root,t,path,cnt);
-        return cnt;
+        if(root == NULL)return 0;
+        unordered_map<long long,int> memo;
+        memo[0]=1;
+        return solve(root,targetSum,0,memo);
     }
 };
