@@ -28,6 +28,13 @@ class Solution {
 	            }
 	        }
 	    }
+	   // for- negitive cycle : 
+	   // for(int i=0;i<n;i++){
+	   //     if(matrix[i][i]<0){
+	   //         cout<<"negitive cycle";
+	   //         return;
+	   //     }
+	   // }
 	    
 	    for(int i=0;i<n;i++){
 	        for(int j=0;j<n;j++){
