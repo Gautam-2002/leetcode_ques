@@ -4,7 +4,9 @@
  */
 var createCounter = function(n) {
     return function() {
-        return n++;
+        var ans = n;
+        n = n + 1;
+        return ans;
     };
 };
 
