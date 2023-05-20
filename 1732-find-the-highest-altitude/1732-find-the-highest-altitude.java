@@ -9,3 +9,4 @@ class Solution {
         return ans;        
     }
 }
+// space can be optimize by using variable instead of pre array
