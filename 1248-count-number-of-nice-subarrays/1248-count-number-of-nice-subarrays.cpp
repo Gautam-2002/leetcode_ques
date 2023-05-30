@@ -30,6 +30,7 @@ public:
         }
         return ans;
     }
+    // math - o(n)--time & o(1)--space
     int solve(vector<int>& nums, int k){
         int cnt = 0;
         vector<int> v;
