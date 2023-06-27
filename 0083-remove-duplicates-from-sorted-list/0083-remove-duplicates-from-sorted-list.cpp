@@ -22,8 +22,8 @@ public:
         
         // // iterative :
         ListNode *temp = head;
-        while(temp!=NULL){
-            if(temp->next != NULL && temp->val == temp->next->val){
+        while(temp->next != NULL){
+            if(temp->val == temp->next->val){
                 ListNode *del = temp->next;
                 temp->next = del->next;
                 delete del;
