@@ -12,12 +12,26 @@ class Solution {
 public:
     ListNode* deleteDuplicates(ListNode* head) {
         if(head==NULL || head->next==NULL)return head;
-        // Recursive :
-        ListNode* newHead = deleteDuplicates(head->next);
-        if(head->val == newHead->val)return newHead;
-        else{
-            head->next = newHead;
-            return head;
+        // // Recursive :
+        // ListNode* newHead = deleteDuplicates(head->next);
+        // if(head->val == newHead->val)return newHead;
+        // else{
+        //     head->next = newHead;
+        //     return head;
+        // }
+        
+        // // iterative :
+        ListNode *temp = head;
+        while(temp!=NULL){
+            if(temp->next != NULL && temp->val == temp->next->val){
+                ListNode *del = temp->next;
+                temp->next = del->next;
+                delete del;
+            }
+            else{
+                temp = temp->next;
+            }
         }
+        return head;
     }
 };
