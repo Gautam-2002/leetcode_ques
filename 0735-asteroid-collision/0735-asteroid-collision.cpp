@@ -1,6 +1,7 @@
 class Solution {
 public:
     vector<int> asteroidCollision(vector<int>& asteroids) {
+        // imagine the array as sttright line of astroids
         stack<int> st;
         for(int i:asteroids){
             if(st.empty() || st.top() < 0){
