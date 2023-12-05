@@ -10,3 +10,10 @@ public:
             return (n/2) + numberOfMatches(n/2);
     }
 };
+// from solutions : 
+// class Solution {
+// public:
+//     int numberOfMatches(int n) {
+//         return n - 1;
+//     }
+// };
