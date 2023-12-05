@@ -11,6 +11,7 @@ public:
     }
 };
 // from solutions : 
+// Intution each match eliminated 1 team to to eliminate n-1 teams it will take n-1 matches (as 1 team will we winner at the end)
 // class Solution {
 // public:
 //     int numberOfMatches(int n) {
